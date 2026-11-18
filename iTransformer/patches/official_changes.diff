@@ -1,0 +1,31 @@
+diff -ru a/run.py b/run.py
+--- a/run.py	2026-11-19 06:36:21.683874377 +0800
++++ b/run.py	2026-11-19 06:36:26.335826336 +0800
+@@ -6,11 +6,7 @@
+ import numpy as np
+ 
+ if __name__ == '__main__':
+-    fix_seed = 2023
+-    random.seed(fix_seed)
+-    torch.manual_seed(fix_seed)
+-    np.random.seed(fix_seed)
+-
++    # [repro] seeding moved below argparse so the seed is configurable (--seed); default 2023 = official value
+     parser = argparse.ArgumentParser(description='iTransformer')
+ 
+     # basic config
+@@ -87,7 +83,14 @@
+     parser.add_argument('--partial_start_index', type=int, default=0, help='the start index of variates for partial training, '
+                                                                            'you can select [partial_start_index, min(enc_in + partial_start_index, N)]')
+ 
++    # [repro] configurable seed (official code hard-codes fix_seed = 2023)
++    parser.add_argument('--seed', type=int, default=2023, help='[repro] random seed (official: 2023)')
++
+     args = parser.parse_args()
++    fix_seed = args.seed
++    random.seed(fix_seed)
++    torch.manual_seed(fix_seed)
++    np.random.seed(fix_seed)
+     args.use_gpu = True if torch.cuda.is_available() and args.use_gpu else False
+ 
+     if args.use_gpu and args.use_multi_gpu:

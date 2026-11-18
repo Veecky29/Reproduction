@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+dataset/
+runs/
+checkpoints/
+test_results/
+*.npy
+!iTransformer/results/**/*.csv

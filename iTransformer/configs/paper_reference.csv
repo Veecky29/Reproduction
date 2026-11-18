@@ -1,0 +1,53 @@
+dataset,pred_len,paper_mse,paper_mae,paper_mse_std5seeds,paper_mae_std5seeds,source
+ETTh1,96,0.386,0.405,,,arXiv:2310.06625v4 Table 10
+ETTh1,192,0.441,0.436,,,arXiv:2310.06625v4 Table 10
+ETTh1,336,0.487,0.458,,,arXiv:2310.06625v4 Table 10
+ETTh1,720,0.503,0.491,,,arXiv:2310.06625v4 Table 10
+ETTh2,96,0.297,0.349,0.002,0.001,arXiv:2310.06625v4 Table 10 (std: Table 5)
+ETTh2,192,0.380,0.400,0.001,0.001,arXiv:2310.06625v4 Table 10 (std: Table 5)
+ETTh2,336,0.428,0.432,0.002,0.001,arXiv:2310.06625v4 Table 10 (std: Table 5)
+ETTh2,720,0.427,0.445,0.004,0.002,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Exchange,96,0.086,0.206,0.001,0.001,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Exchange,192,0.177,0.299,0.001,0.001,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Exchange,336,0.331,0.417,0.001,0.001,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Exchange,720,0.847,0.691,0.012,0.005,arXiv:2310.06625v4 Table 10 (std: Table 5)
+ETTm1,96,0.334,0.368,,,arXiv:2310.06625v4 Table 10
+ETTm1,192,0.377,0.391,,,arXiv:2310.06625v4 Table 10
+ETTm1,336,0.426,0.420,,,arXiv:2310.06625v4 Table 10
+ETTm1,720,0.491,0.459,,,arXiv:2310.06625v4 Table 10
+ETTm2,96,0.180,0.264,,,arXiv:2310.06625v4 Table 10
+ETTm2,192,0.250,0.309,,,arXiv:2310.06625v4 Table 10
+ETTm2,336,0.311,0.348,,,arXiv:2310.06625v4 Table 10
+ETTm2,720,0.412,0.407,,,arXiv:2310.06625v4 Table 10
+Weather,96,0.174,0.214,0.000,0.000,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Weather,192,0.221,0.254,0.002,0.001,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Weather,336,0.278,0.296,0.002,0.001,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Weather,720,0.358,0.347,0.000,0.000,arXiv:2310.06625v4 Table 10 (std: Table 5)
+ECL,96,0.148,0.240,0.000,0.000,arXiv:2310.06625v4 Table 10 (std: Table 5)
+ECL,192,0.162,0.253,0.002,0.002,arXiv:2310.06625v4 Table 10 (std: Table 5)
+ECL,336,0.178,0.269,0.000,0.001,arXiv:2310.06625v4 Table 10 (std: Table 5)
+ECL,720,0.225,0.317,0.006,0.007,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Solar-Energy,96,0.203,0.237,0.002,0.002,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Solar-Energy,192,0.233,0.261,0.002,0.001,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Solar-Energy,336,0.248,0.273,0.000,0.000,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Solar-Energy,720,0.249,0.275,0.001,0.000,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Traffic,96,0.395,0.268,0.001,0.001,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Traffic,192,0.417,0.276,0.002,0.001,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Traffic,336,0.433,0.283,0.004,0.000,arXiv:2310.06625v4 Table 10 (std: Table 5)
+Traffic,720,0.467,0.302,0.003,0.000,arXiv:2310.06625v4 Table 10 (std: Table 5)
+PEMS03,12,0.071,0.174,,,arXiv:2310.06625v4 Table 9
+PEMS03,24,0.093,0.201,,,arXiv:2310.06625v4 Table 9
+PEMS03,48,0.125,0.236,,,arXiv:2310.06625v4 Table 9
+PEMS03,96,0.164,0.275,,,arXiv:2310.06625v4 Table 9
+PEMS04,12,0.078,0.183,,,arXiv:2310.06625v4 Table 9
+PEMS04,24,0.095,0.205,,,arXiv:2310.06625v4 Table 9
+PEMS04,48,0.120,0.233,,,arXiv:2310.06625v4 Table 9
+PEMS04,96,0.150,0.262,,,arXiv:2310.06625v4 Table 9
+PEMS07,12,0.067,0.165,,,arXiv:2310.06625v4 Table 9
+PEMS07,24,0.088,0.190,,,arXiv:2310.06625v4 Table 9
+PEMS07,48,0.110,0.215,,,arXiv:2310.06625v4 Table 9
+PEMS07,96,0.139,0.245,,,arXiv:2310.06625v4 Table 9
+PEMS08,12,0.079,0.182,,,arXiv:2310.06625v4 Table 9
+PEMS08,24,0.115,0.219,,,arXiv:2310.06625v4 Table 9
+PEMS08,48,0.186,0.235,,,arXiv:2310.06625v4 Table 9
+PEMS08,96,0.221,0.267,,,arXiv:2310.06625v4 Table 9
