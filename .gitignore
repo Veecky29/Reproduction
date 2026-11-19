@@ -6,3 +6,4 @@ checkpoints/
 test_results/
 *.npy
 !iTransformer/results/**/*.csv
+!DLinear/results/**/*.csv

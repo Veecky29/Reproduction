@@ -63,9 +63,9 @@ def main():
     table = '\n'.join(md)
     print(table)
     if a.readme:
-        txt = open(a.readme).read()
+        txt = open(a.readme, encoding='utf-8').read()
         i, j = txt.index(BEGIN) + len(BEGIN), txt.index(END)
-        open(a.readme, 'w').write(txt[:i] + '\n' + table + '\n' + txt[j:])
+        open(a.readme, 'w', encoding='utf-8').write(txt[:i] + '\n' + table + '\n' + txt[j:])
 
 
 if __name__ == '__main__':

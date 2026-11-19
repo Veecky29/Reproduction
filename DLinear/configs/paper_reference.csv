@@ -1,0 +1,37 @@
+dataset,pred_len,paper_mse,paper_mae,official_l96_mse,official_l96_mae,official_bestL_mse,official_bestL_mae,source
+ETTh1,96,0.386,0.4,,,0.375,0.399,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTh1,192,0.437,0.432,,,0.405,0.416,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTh1,336,0.481,0.459,,,0.439,0.443,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTh1,720,0.519,0.516,,,0.472,0.49,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTh2,96,0.333,0.387,,,0.289,0.353,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTh2,192,0.477,0.476,,,0.383,0.418,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTh2,336,0.594,0.541,,,0.448,0.465,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTh2,720,0.831,0.657,,,0.605,0.551,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTm1,96,0.345,0.372,,,0.299,0.343,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTm1,192,0.38,0.389,,,0.335,0.365,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTm1,336,0.413,0.413,,,0.369,0.386,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTm1,720,0.474,0.453,,,0.425,0.421,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTm2,96,0.193,0.292,,,0.167,0.26,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTm2,192,0.284,0.362,,,0.224,0.303,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTm2,336,0.369,0.427,,,0.281,0.342,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+ETTm2,720,0.554,0.522,,,0.397,0.421,"PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_bestL from LTSF-Benchmark.md ETT table (best input length, typically 336)."
+Exchange,96,0.088,0.218,0.089,0.208,,,iTransformer arXiv:2310.06625v4 Table 10 (L=96); not in PAC-Former Table 4. official_l96 from LTSF-Benchmark.md (I=96).
+Exchange,192,0.176,0.315,0.18,0.3,,,iTransformer arXiv:2310.06625v4 Table 10 (L=96); not in PAC-Former Table 4. official_l96 from LTSF-Benchmark.md (I=96).
+Exchange,336,0.313,0.427,0.331,0.415,,,iTransformer arXiv:2310.06625v4 Table 10 (L=96); not in PAC-Former Table 4. official_l96 from LTSF-Benchmark.md (I=96).
+Exchange,720,0.839,0.695,1.033,0.78,,,iTransformer arXiv:2310.06625v4 Table 10 (L=96); not in PAC-Former Table 4. official_l96 from LTSF-Benchmark.md (I=96).
+Weather,96,0.196,0.255,0.182,0.232,,,PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_l96 from LTSF-Benchmark.md (I=96).
+Weather,192,0.237,0.296,0.225,0.269,,,PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_l96 from LTSF-Benchmark.md (I=96).
+Weather,336,0.283,0.335,0.271,0.301,,,PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_l96 from LTSF-Benchmark.md (I=96).
+Weather,720,0.345,0.381,0.338,0.348,,,PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_l96 from LTSF-Benchmark.md (I=96).
+ECL,96,0.197,0.282,0.141,0.237,,,PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_l96 from LTSF-Benchmark.md (I=96).
+ECL,192,0.196,0.285,0.154,0.248,,,PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_l96 from LTSF-Benchmark.md (I=96).
+ECL,336,0.209,0.301,0.171,0.265,,,PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_l96 from LTSF-Benchmark.md (I=96).
+ECL,720,0.245,0.333,0.21,0.297,,,PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_l96 from LTSF-Benchmark.md (I=96).
+Traffic,96,0.65,0.396,0.41,0.279,,,PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_l96 from LTSF-Benchmark.md (I=96).
+Traffic,192,0.598,0.37,0.423,0.284,,,PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_l96 from LTSF-Benchmark.md (I=96).
+Traffic,336,0.605,0.373,0.435,0.29,,,PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_l96 from LTSF-Benchmark.md (I=96).
+Traffic,720,0.645,0.394,0.464,0.307,,,PAC-Former v5 Table 4 = iTransformer arXiv:2310.06625v4 Table 10 (L=96). official_l96 from LTSF-Benchmark.md (I=96).
+Solar-Energy,96,0.29,0.378,,,,,iTransformer arXiv:2310.06625v4 Table 10 (L=96). Not in PAC-Former Table 4. No official LTSF-Linear script or loader; not in default jobs.csv.
+Solar-Energy,192,0.32,0.398,,,,,iTransformer arXiv:2310.06625v4 Table 10 (L=96). Not in PAC-Former Table 4. No official LTSF-Linear script or loader; not in default jobs.csv.
+Solar-Energy,336,0.353,0.415,,,,,iTransformer arXiv:2310.06625v4 Table 10 (L=96). Not in PAC-Former Table 4. No official LTSF-Linear script or loader; not in default jobs.csv.
+Solar-Energy,720,0.356,0.413,,,,,iTransformer arXiv:2310.06625v4 Table 10 (L=96). Not in PAC-Former Table 4. No official LTSF-Linear script or loader; not in default jobs.csv.
