@@ -9,6 +9,7 @@ configs and results.
 | iTransformer (ICLR 2024) | [iTransformer/](iTransformer/) | completed 108/108, 0 failed; wall clock ~17 h on RTX 4090, 2026-11-19 10:24 to 2026-11-20 03:22 MYT |
 | DLinear (AAAI 2023) | [DLinear/](DLinear/) | completed 96/96, 0 failed; wall clock 6 h 11 m on RTX 4090, 2026-11-20 03:46 to 09:57 MYT |
 | PatchTST (ICLR 2023) | [PatchTST/](PatchTST/) | running |
+| RLinear (arXiv 2023) | [RLinear/](RLinear/) | code ready, not yet run |
 
 ## iTransformer: results
 
@@ -128,3 +129,13 @@ Traffic and Exchange are not in this run. Protocol: [PatchTST/README.md](PatchTS
 <!-- PATCHTST_RESULTS:BEGIN -->
 *Running: 72 jobs (6 datasets × 4 horizons × 3 seeds). Traffic and Exchange are not scheduled.*
 <!-- PATCHTST_RESULTS:END -->
+
+## RLinear: results
+
+Lookback 96. Not yet run. Protocol and hyperparameters: [RLinear/README.md](RLinear/README.md).
+8 datasets × 4 horizons × 3 seeds = 96 jobs. Exchange follows the ETTh1 official recipe;
+Traffic follows the ECL official recipe (neither has an official RTSF script).
+
+<!-- RLINEAR_RESULTS:BEGIN -->
+*Code ready, not yet run. 96 jobs (8 datasets × 4 horizons × 3 seeds).*
+<!-- RLINEAR_RESULTS:END -->

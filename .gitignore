@@ -8,3 +8,4 @@ test_results/
 !iTransformer/results/**/*.csv
 !DLinear/results/**/*.csv
 !PatchTST/results/**/*.csv
+!RLinear/results/**/*.csv
