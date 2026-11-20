@@ -21,9 +21,9 @@ def main():
     ap.add_argument('--out', default=os.path.join(ROOT, 'results', 'summary.csv'))
     ap.add_argument('--readme', default='', help='root README.md to update in place')
     a = ap.parse_args()
-    ref = {(r['dataset'], int(r['pred_len'])): r for r in csv.DictReader(open(a.ref))}
+    ref = {(r['dataset'], int(r['pred_len'])): r for r in csv.DictReader(open(a.ref, encoding='utf-8'))}
     per = {}
-    for r in csv.DictReader(open(a.results)):
+    for r in csv.DictReader(open(a.results, encoding='utf-8')):
         if r['status'] != 'ok':
             continue
         per.setdefault((r['dataset'], int(r['pred_len'])), []).append(r)
@@ -53,7 +53,7 @@ def main():
             if k not in fields:
                 fields.append(k)
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
-    with open(a.out, 'w', newline='') as f:
+    with open(a.out, 'w', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, fieldnames=fields); w.writeheader(); w.writerows(rows)
 
     f3 = lambda v: '' if v is None else f'{v:.3f}'
@@ -68,9 +68,9 @@ def main():
     table = '\n'.join(md)
     print(table)
     if a.readme:
-        txt = open(a.readme).read()
+        txt = open(a.readme, encoding='utf-8').read()
         i, j = txt.index(BEGIN) + len(BEGIN), txt.index(END)
-        open(a.readme, 'w').write(txt[:i] + '\n' + table + '\n' + txt[j:])
+        open(a.readme, 'w', encoding='utf-8').write(txt[:i] + '\n' + table + '\n' + txt[j:])
 
 
 if __name__ == '__main__':
