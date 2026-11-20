@@ -1,0 +1,3 @@
+# No official-code changes.
+# yuqinie98/PatchTST already exposes --random_seed (default 2021) in PatchTST_supervised/run_longExp.py.
+# This reproduction uses that flag as-is (seeds 2026/2027/2028).

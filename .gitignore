@@ -7,3 +7,4 @@ test_results/
 *.npy
 !iTransformer/results/**/*.csv
 !DLinear/results/**/*.csv
+!PatchTST/results/**/*.csv

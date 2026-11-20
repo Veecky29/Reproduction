@@ -8,6 +8,7 @@ configs and results.
 |---|---|---|
 | iTransformer (ICLR 2024) | [iTransformer/](iTransformer/) | completed 108/108, 0 failed; wall clock ~17 h on RTX 4090, 2026-11-19 10:24 to 2026-11-20 03:22 MYT |
 | DLinear (AAAI 2023) | [DLinear/](DLinear/) | running |
+| PatchTST (ICLR 2023) | [PatchTST/](PatchTST/) | running |
 
 ## iTransformer: results
 
@@ -66,3 +67,13 @@ from LTSF-Benchmark.md are also shown where they exist. Protocol: [DLinear/READM
 <!-- DLINEAR_RESULTS:BEGIN -->
 *Pending: the 96 runs (8 datasets × 4 horizons × 3 seeds) have started on the RTX 4090.*
 <!-- DLINEAR_RESULTS:END -->
+
+## PatchTST: results
+
+Lookback 96. MSE / MAE on the standardised test set, mean ± sample std over seeds 2026/2027/2028.
+"Paper" = PAC-Former Table 4 = iTransformer Table 10 (arXiv:2310.06625v4), PatchTST column.
+Traffic and Exchange are not in this run. Protocol: [PatchTST/README.md](PatchTST/README.md).
+
+<!-- PATCHTST_RESULTS:BEGIN -->
+*Running: 72 jobs (6 datasets × 4 horizons × 3 seeds). Traffic and Exchange are not scheduled.*
+<!-- PATCHTST_RESULTS:END -->
