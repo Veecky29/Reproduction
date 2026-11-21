@@ -231,6 +231,51 @@ while the summed RAM estimate fits the budget.
 
 Do not start this while the DLinear reproduction is still using the GPU.
 
+## Results
+
+The 72 runs finished on 2026-11-20 10:24 to 2026-11-21 16:49 MYT (~30 h 25 m wall clock on one RTX 4090), with 0 failures. Numbers below are the 3-seed mean ± sample standard deviation (seeds 2026/2027/2028), never the best seed. "Paper" is the PatchTST column of iTransformer Table 10 (arXiv:2310.06625v4), which PAC-Former Table 4 copies at lookback 96. Traffic and Exchange were not scheduled. Δ = (ours − paper) / paper; a negative value means a lower error than the paper.
+
+Across the 24 dataset–horizon settings, mean MSE is 2.73% lower than the paper and mean MAE is 1.92% lower. The ECL gap (mean ΔMSE −7.15%) reflects the official script's 100-epoch / patience-10 budget versus Table 10's unified Time-Series-Library (TSLib) setting.
+
+| Dataset | Horizon | Seeds | MSE (mean ± std) | MAE (mean ± std) | Paper MSE | Paper MAE | ΔMSE vs paper | ΔMAE vs paper |
+|---|---|---|---|---|---|---|---|---|
+| ETTh1 | 96 | 3 | 0.3929 ± 0.0010 | 0.4080 ± 0.0010 | 0.414 | 0.419 | -5.09% | -2.63% |
+| ETTh1 | 192 | 3 | 0.4457 ± 0.0006 | 0.4350 ± 0.0001 | 0.460 | 0.445 | -3.11% | -2.25% |
+| ETTh1 | 336 | 3 | 0.4836 ± 0.0012 | 0.4518 ± 0.0007 | 0.501 | 0.466 | -3.46% | -3.04% |
+| ETTh1 | 720 | 3 | 0.4769 ± 0.0016 | 0.4691 ± 0.0014 | 0.500 | 0.488 | -4.63% | -3.87% |
+| ETTh2 | 96 | 3 | 0.2954 ± 0.0003 | 0.3441 ± 0.0002 | 0.302 | 0.348 | -2.18% | -1.11% |
+| ETTh2 | 192 | 3 | 0.3784 ± 0.0002 | 0.3941 ± 0.0002 | 0.388 | 0.400 | -2.48% | -1.48% |
+| ETTh2 | 336 | 3 | 0.3816 ± 0.0007 | 0.4098 ± 0.0005 | 0.426 | 0.433 | -10.42% | -5.36% |
+| ETTh2 | 720 | 3 | 0.4119 ± 0.0011 | 0.4337 ± 0.0007 | 0.431 | 0.446 | -4.44% | -2.75% |
+| ETTm1 | 96 | 3 | 0.3209 ± 0.0012 | 0.3594 ± 0.0009 | 0.329 | 0.367 | -2.46% | -2.08% |
+| ETTm1 | 192 | 3 | 0.3617 ± 0.0016 | 0.3816 ± 0.0008 | 0.367 | 0.385 | -1.44% | -0.90% |
+| ETTm1 | 336 | 3 | 0.3924 ± 0.0031 | 0.4031 ± 0.0012 | 0.399 | 0.410 | -1.66% | -1.69% |
+| ETTm1 | 720 | 3 | 0.4526 ± 0.0022 | 0.4374 ± 0.0016 | 0.454 | 0.439 | -0.30% | -0.36% |
+| ETTm2 | 96 | 3 | 0.1781 ± 0.0010 | 0.2602 ± 0.0015 | 0.175 | 0.259 | +1.78% | +0.46% |
+| ETTm2 | 192 | 3 | 0.2440 ± 0.0028 | 0.3034 ± 0.0022 | 0.241 | 0.302 | +1.24% | +0.47% |
+| ETTm2 | 336 | 3 | 0.3064 ± 0.0046 | 0.3432 ± 0.0027 | 0.305 | 0.343 | +0.46% | +0.07% |
+| ETTm2 | 720 | 3 | 0.4106 ± 0.0057 | 0.4037 ± 0.0028 | 0.402 | 0.400 | +2.14% | +0.92% |
+| Weather | 96 | 3 | 0.1775 ± 0.0011 | 0.2188 ± 0.0010 | 0.177 | 0.218 | +0.30% | +0.35% |
+| Weather | 192 | 3 | 0.2246 ± 0.0004 | 0.2588 ± 0.0002 | 0.225 | 0.259 | -0.17% | -0.08% |
+| Weather | 336 | 3 | 0.2778 ± 0.0005 | 0.2979 ± 0.0002 | 0.278 | 0.297 | -0.07% | +0.32% |
+| Weather | 720 | 3 | 0.3507 ± 0.0004 | 0.3464 ± 0.0002 | 0.354 | 0.348 | -0.93% | -0.46% |
+| ECL | 96 | 3 | 0.1664 ± 0.0001 | 0.2523 ± 0.0001 | 0.181 | 0.270 | -8.07% | -6.57% |
+| ECL | 192 | 3 | 0.1741 ± 0.0002 | 0.2606 ± 0.0003 | 0.188 | 0.274 | -7.40% | -4.90% |
+| ECL | 336 | 3 | 0.1897 ± 0.0001 | 0.2769 ± 0.0002 | 0.204 | 0.293 | -7.02% | -5.50% |
+| ECL | 720 | 3 | 0.2310 ± 0.0007 | 0.3121 ± 0.0009 | 0.246 | 0.324 | -6.11% | -3.66% |
+
+Average relative difference over the four horizons in each dataset:
+
+| Dataset | ΔMSE vs paper | ΔMAE vs paper |
+|---|---|---|
+| ETTh1 | -4.07% | -2.95% |
+| ETTh2 | -4.88% | -2.68% |
+| ETTm1 | -1.47% | -1.26% |
+| ETTm2 | +1.40% | +0.48% |
+| Weather | -0.22% | +0.03% |
+| ECL | -7.15% | -5.16% |
+| **Overall** | **-2.73%** | **-1.92%** |
+
 ## Files
 
 * `official/` official supervised code (Apache-2.0, see `THIRD_PARTY_NOTICE.md`).
@@ -240,4 +285,4 @@ Do not start this while the DLinear reproduction is still using the GPU.
   defaults, and the unscheduled Exchange proposal / Traffic note
 * `configs/paper_reference.csv` iTransformer Table 10 PatchTST column (L=96)
 * `tools/` config builder, scheduler, aggregation, launch script
-* `results/` per-seed `results.csv` and `summary.csv` (filled after the runs)
+* `results/` per-seed `results.csv` and `summary.csv`

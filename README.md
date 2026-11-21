@@ -8,7 +8,7 @@ configs and results.
 |---|---|---|
 | iTransformer (ICLR 2024) | [iTransformer/](iTransformer/) | completed 108/108, 0 failed; wall clock ~17 h on RTX 4090, 2026-11-19 10:24 to 2026-11-20 03:22 MYT |
 | DLinear (AAAI 2023) | [DLinear/](DLinear/) | completed 96/96, 0 failed; wall clock 6 h 11 m on RTX 4090, 2026-11-20 03:46 to 09:57 MYT |
-| PatchTST (ICLR 2023) | [PatchTST/](PatchTST/) | running |
+| PatchTST (ICLR 2023) | [PatchTST/](PatchTST/) | completed 72/72, 0 failed; wall clock ~30 h 25 m on RTX 4090, 2026-11-20 10:24 to 2026-11-21 16:49 MYT |
 | RLinear (arXiv 2023) | [RLinear/](RLinear/) | code ready, not yet run |
 
 ## iTransformer: results
@@ -124,10 +124,52 @@ Average relative difference over the four horizons in each dataset:
 
 Lookback 96. MSE / MAE on the standardised test set, mean ± sample std over seeds 2026/2027/2028.
 "Paper" = PAC-Former Table 4 = iTransformer Table 10 (arXiv:2310.06625v4), PatchTST column.
-Traffic and Exchange are not in this run. Protocol: [PatchTST/README.md](PatchTST/README.md).
+ΔMSE vs paper = (ours − paper) / paper. Traffic and Exchange are not in this run. Protocol: [PatchTST/README.md](PatchTST/README.md).
+
+The 72 runs all succeeded (6 datasets × 4 horizons × 3 seeds) in ~30 h 25 m on one RTX 4090,
+2026-11-20 10:24 to 2026-11-21 16:49 MYT. Across the 24 settings, mean MSE is 2.73% lower than the paper
+and mean MAE is 1.92% lower. The ECL gap (mean ΔMSE −7.15%) reflects the official script's 100-epoch /
+patience-10 budget versus Table 10's unified TSLib setting.
 
 <!-- PATCHTST_RESULTS:BEGIN -->
-*Running: 72 jobs (6 datasets × 4 horizons × 3 seeds). Traffic and Exchange are not scheduled.*
+| Dataset | Horizon | Seeds | MSE (mean ± std) | MAE (mean ± std) | Paper MSE | Paper MAE | ΔMSE vs paper | ΔMAE vs paper |
+|---|---|---|---|---|---|---|---|---|
+| ETTh1 | 96 | 3 | 0.3929 ± 0.0010 | 0.4080 ± 0.0010 | 0.414 | 0.419 | -5.09% | -2.63% |
+| ETTh1 | 192 | 3 | 0.4457 ± 0.0006 | 0.4350 ± 0.0001 | 0.460 | 0.445 | -3.11% | -2.25% |
+| ETTh1 | 336 | 3 | 0.4836 ± 0.0012 | 0.4518 ± 0.0007 | 0.501 | 0.466 | -3.46% | -3.04% |
+| ETTh1 | 720 | 3 | 0.4769 ± 0.0016 | 0.4691 ± 0.0014 | 0.500 | 0.488 | -4.63% | -3.87% |
+| ETTh2 | 96 | 3 | 0.2954 ± 0.0003 | 0.3441 ± 0.0002 | 0.302 | 0.348 | -2.18% | -1.11% |
+| ETTh2 | 192 | 3 | 0.3784 ± 0.0002 | 0.3941 ± 0.0002 | 0.388 | 0.400 | -2.48% | -1.48% |
+| ETTh2 | 336 | 3 | 0.3816 ± 0.0007 | 0.4098 ± 0.0005 | 0.426 | 0.433 | -10.42% | -5.36% |
+| ETTh2 | 720 | 3 | 0.4119 ± 0.0011 | 0.4337 ± 0.0007 | 0.431 | 0.446 | -4.44% | -2.75% |
+| ETTm1 | 96 | 3 | 0.3209 ± 0.0012 | 0.3594 ± 0.0009 | 0.329 | 0.367 | -2.46% | -2.08% |
+| ETTm1 | 192 | 3 | 0.3617 ± 0.0016 | 0.3816 ± 0.0008 | 0.367 | 0.385 | -1.44% | -0.90% |
+| ETTm1 | 336 | 3 | 0.3924 ± 0.0031 | 0.4031 ± 0.0012 | 0.399 | 0.410 | -1.66% | -1.69% |
+| ETTm1 | 720 | 3 | 0.4526 ± 0.0022 | 0.4374 ± 0.0016 | 0.454 | 0.439 | -0.30% | -0.36% |
+| ETTm2 | 96 | 3 | 0.1781 ± 0.0010 | 0.2602 ± 0.0015 | 0.175 | 0.259 | +1.78% | +0.46% |
+| ETTm2 | 192 | 3 | 0.2440 ± 0.0028 | 0.3034 ± 0.0022 | 0.241 | 0.302 | +1.24% | +0.47% |
+| ETTm2 | 336 | 3 | 0.3064 ± 0.0046 | 0.3432 ± 0.0027 | 0.305 | 0.343 | +0.46% | +0.07% |
+| ETTm2 | 720 | 3 | 0.4106 ± 0.0057 | 0.4037 ± 0.0028 | 0.402 | 0.400 | +2.14% | +0.92% |
+| Weather | 96 | 3 | 0.1775 ± 0.0011 | 0.2188 ± 0.0010 | 0.177 | 0.218 | +0.30% | +0.35% |
+| Weather | 192 | 3 | 0.2246 ± 0.0004 | 0.2588 ± 0.0002 | 0.225 | 0.259 | -0.17% | -0.08% |
+| Weather | 336 | 3 | 0.2778 ± 0.0005 | 0.2979 ± 0.0002 | 0.278 | 0.297 | -0.07% | +0.32% |
+| Weather | 720 | 3 | 0.3507 ± 0.0004 | 0.3464 ± 0.0002 | 0.354 | 0.348 | -0.93% | -0.46% |
+| ECL | 96 | 3 | 0.1664 ± 0.0001 | 0.2523 ± 0.0001 | 0.181 | 0.270 | -8.07% | -6.57% |
+| ECL | 192 | 3 | 0.1741 ± 0.0002 | 0.2606 ± 0.0003 | 0.188 | 0.274 | -7.40% | -4.90% |
+| ECL | 336 | 3 | 0.1897 ± 0.0001 | 0.2769 ± 0.0002 | 0.204 | 0.293 | -7.02% | -5.50% |
+| ECL | 720 | 3 | 0.2310 ± 0.0007 | 0.3121 ± 0.0009 | 0.246 | 0.324 | -6.11% | -3.66% |
+
+Average relative difference over the four horizons in each dataset:
+
+| Dataset | ΔMSE vs paper | ΔMAE vs paper |
+|---|---|---|
+| ETTh1 | -4.07% | -2.95% |
+| ETTh2 | -4.88% | -2.68% |
+| ETTm1 | -1.47% | -1.26% |
+| ETTm2 | +1.40% | +0.48% |
+| Weather | -0.22% | +0.03% |
+| ECL | -7.15% | -5.16% |
+| **Overall** | **-2.73%** | **-1.92%** |
 <!-- PATCHTST_RESULTS:END -->
 
 ## RLinear: results
