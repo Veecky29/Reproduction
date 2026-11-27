@@ -1,0 +1,2 @@
+{"dataset": "Weather", "arm": "plain", "horizon": 96, "seed": 2026, "L": 96, "C": 21, "params": 708576, "best_epoch": 7, "val_mse": 0.529371, "test_mse": 0.213185, "test_mae": 0.236683, "seconds": 175.0, "d": 128, "layers": 3, "patch": 16, "batch": 64, "lr": 0.001, "epochs_run": 10}
+{"dataset": "Weather", "arm": "concat", "horizon": 96, "seed": 2026, "L": 96, "C": 21, "params": 789504, "best_epoch": 9, "val_mse": 0.445381, "test_mse": 0.164684, "test_mae": 0.216137, "seconds": 169.2, "d": 144, "layers": 3, "patch": 16, "batch": 64, "lr": 0.001, "epochs_run": 10}
