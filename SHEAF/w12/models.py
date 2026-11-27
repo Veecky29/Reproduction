@@ -1,4 +1,4 @@
-"""Arms, revision 2 (after the review of the negative result).
+﻿"""Arms, revision 2 (after the review of the negative result).
 
 Every arm now shares the SAME channel-independent patch encoder; only the way
 cross-channel information enters the output differs. That was the flaw in v1: the
@@ -178,13 +178,51 @@ class SheafReadout(Base):
         return y, mu, sd
 
 
+class MixGated(Base):
+    """CI encoder + switchable residual channel mixing.
+
+        h'_i = h_i + beta_i * Mix(h)_i
+
+    `Mix` is one softmax channel-attention head; `beta_i` is a learned per-channel
+    scalar initialised at 0.1, so beta=0 recovers `plain` and beta=1 recovers dense
+    mixing (`concat`). The model therefore spans both endpoints we already measured
+    (9.4% apart on Electricity, 0 on Weather) and has to pick.
+    """
+
+    def __init__(self, H, enc_kw, C=64, beta_init=0.1, rank=16, dropout=0.1):
+        super().__init__(enc_kw)
+        d = self.d
+        self.rank = rank
+        self.p = nn.Linear(d, rank, bias=False)
+        self.q = nn.Linear(d, rank, bias=False)
+        self.v = nn.Linear(d, d, bias=False)
+        self.o = nn.Linear(d, d, bias=False)
+        self.beta = nn.Parameter(torch.full((max(C, 1),), float(beta_init)))
+        self.head = nn.Linear(d + 2, H)
+
+    def forward(self, x):
+        h, mu, sd = self.embed(x)
+        C = h.shape[1]
+        p, q = self.p(h), self.q(h)                    # (B,C,r)
+        a = torch.einsum("bir,bjr->bij", p, q) / math.sqrt(self.rank)
+        a = torch.softmax(a, dim=-1)                   # (B,C,C)
+        m = self.o(torch.einsum("bij,bjd->bid", a, self.v(h)))
+        beta = self.beta[:C].view(1, C, 1)
+        h2 = h + beta * m
+        self.beta_mean = float(self.beta[:C].mean())
+        y = self.head(torch.cat([h2, _stats(mu, sd)], dim=-1)).permute(0, 2, 1)
+        return y, mu, sd
+
+
 def build(arm: str, L: int, H: int, rho=None, d: int = 128, n_layer: int = 3,
-          patch: int = 16, dropout: float = 0.1, C: int = 64):
+          patch: int = 16, dropout: float = 0.1, C: int = 64, beta_init: float = 0.1):
     enc_kw = dict(L=L, patch=patch, d=d, n_layer=n_layer, n_head=8, dropout=dropout)
     if arm == "plain":
         return PlainCI(H, enc_kw)
     if arm == "concat":
         return ChannelMixFair(H, enc_kw, C=C, n_mix=1, dropout=dropout)
+    if arm == "mix":
+        return MixGated(H, enc_kw, C=C, beta_init=beta_init, dropout=dropout)
     if arm == "sheaf":
         return SheafReadout(H, enc_kw, rho=rho, dropout=dropout, C=C)
     raise ValueError(f"unknown arm {arm!r}")
@@ -192,3 +230,4 @@ def build(arm: str, L: int, H: int, rho=None, d: int = 128, n_layer: int = 3,
 
 def n_params(model: nn.Module) -> int:
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
+

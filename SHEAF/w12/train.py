@@ -1,4 +1,4 @@
-"""W1.2 trainer: one (dataset, arm, horizon, seed) run -> one JSON line.
+﻿"""W1.2 trainer: one (dataset, arm, horizon, seed) run -> one JSON line.
 
     python train.py --data-root /root/autodl-tmp/benchmark --dataset ETTh1 \
         --arm sheaf --horizon 96 --seed 2026
@@ -79,7 +79,7 @@ def run(args):
 
     model = M.build(args.arm, args.L, args.horizon, rho=prior, d=args.d,
                     n_layer=args.layers, patch=args.patch,
-                    dropout=args.dropout, C=int(C)).to(dev)
+                    dropout=args.dropout, C=int(C), beta_init=args.beta_init).to(dev)
     print(f"    arm={args.arm}  params={M.n_params(model):,}", flush=True)
 
     opt = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=1e-4)
@@ -132,7 +132,8 @@ def run(args):
                best_epoch=best["epoch"], val_mse=round(best["val"] if not args.fixed_epochs else hist[-1]["val"], 6),
                test_mse=round(tmse, 6), test_mae=round(tmae, 6),
                seconds=round(time.time() - t0, 1), d=args.d, layers=args.layers,
-               patch=args.patch, batch=args.batch, lr=args.lr, epochs_run=len(hist))
+               patch=args.patch, batch=args.batch, lr=args.lr, epochs_run=len(hist),
+               beta_init=args.beta_init)
     # read-out diagnostics: whether the cross-channel branch actually opened is the
     # first thing to look at before blaming (or crediting) the architecture.
     if hasattr(model, "msg_scale"):
@@ -140,6 +141,11 @@ def run(args):
                    delta=round(float(model.delta.detach()), 5),
                    eta=round(float(model.eta.detach()), 5),
                    tau=round(float(torch.exp(model.log_tau.detach())), 5))
+    if hasattr(model, "beta"):
+        b = model.beta.detach()
+        rec.update(beta_mean=round(float(b.mean()), 5),
+                   beta_min=round(float(b.min()), 5),
+                   beta_max=round(float(b.max()), 5))
         gs = getattr(model, "gate_stats", None)
         if gs:
             rec.update(gate_mean=round(gs[0], 5), gate_sd=round(gs[1], 5),
@@ -152,7 +158,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data-root", default="/root/autodl-tmp/benchmark")
     ap.add_argument("--dataset", default="ETTh1")
-    ap.add_argument("--arm", default="sheaf", choices=["plain", "concat", "sheaf"])
+    ap.add_argument("--arm", default="sheaf", choices=["plain", "concat", "mix", "sheaf"])
     ap.add_argument("--horizon", type=int, default=96)
     ap.add_argument("--L", type=int, default=96)
     ap.add_argument("--patch", type=int, default=16)
@@ -166,6 +172,8 @@ def main():
     ap.add_argument("--lr", type=float, default=1e-3)
     ap.add_argument("--epochs", type=int, default=20)
     ap.add_argument("--patience", type=int, default=3)
+    ap.add_argument("--beta-init", type=float, default=0.1,
+                    help="initial value of the per-channel mixing gate (mix arm)")
     ap.add_argument("--fixed-epochs", action="store_true",
                     help="no early stopping; keep the last epoch (low-variance protocol)")
     ap.add_argument("--workers", type=int, default=4)
@@ -186,5 +194,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
 
 
