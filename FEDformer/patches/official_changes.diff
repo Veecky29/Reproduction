@@ -1,0 +1,33 @@
+--- /root/autodl-tmp/FEDformer_official/run.py	2026-11-27 19:56:10.059667343 +0800
++++ /root/autodl-tmp/Reproduction/FEDformer/official/run.py	2026-11-27 20:06:54.941844094 +0800
+@@ -16,6 +16,7 @@
+     parser = argparse.ArgumentParser(description='Autoformer & Transformer family for Time Series Forecasting')
+ 
+     # basic config
++    parser.add_argument('--seed', type=int, default=2021, help='random seed')
+     parser.add_argument('--is_training', type=int, default=1, help='status')
+     parser.add_argument('--task_id', type=str, default='test', help='task id')
+     parser.add_argument('--model', type=str, default='FEDformer',
+@@ -92,6 +93,11 @@
+     parser.add_argument('--devices', type=str, default='0,1', help='device ids of multi gpus')
+ 
+     args = parser.parse_args()
++    # --- reproduction patch: honour --seed (upstream hard-codes 2021 above) ---
++    random.seed(args.seed); torch.manual_seed(args.seed); np.random.seed(args.seed)
++    if args.use_gpu and torch.cuda.is_available():
++        torch.cuda.manual_seed_all(args.seed)
++    # --- end patch ---
+ 
+     args.use_gpu = True if torch.cuda.is_available() and args.use_gpu else False
+ 
+--- /root/autodl-tmp/FEDformer_official/utils/tools.py	2026-11-27 19:56:10.059667343 +0800
++++ /root/autodl-tmp/Reproduction/FEDformer/official/utils/tools.py	2026-11-27 20:07:54.244710675 +0800
+@@ -32,7 +32,7 @@
+         self.counter = 0
+         self.best_score = None
+         self.early_stop = False
+-        self.val_loss_min = np.Inf
++        self.val_loss_min = np.inf
+         self.delta = delta
+ 
+     def __call__(self, val_loss, model, path):

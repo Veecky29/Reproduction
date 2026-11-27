@@ -1,0 +1,2 @@
+job_id,dataset,pred_len,seed,status,test_mse,test_mae,test_rmse,epochs_ran,best_epoch,best_val_loss,early_stopped,elapsed_s,returncode,start_local,end_local,gpu_name,setting
+ETTh1_H96_s2026,ETTh1,96,2026,ok,0.3763788640499115,0.4145124852657318,0.613497257232666,10,8,0.7785167,False,663.5,0,2026-11-27T20:08:03+08:00,2026-11-27T20:19:07+08:00,NVIDIA GeForce RTX 4090 D,ETTh1_FEDformer_random_modes64_ETTh1_ftM_sl96_ll48_pl96_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_Exp_0
