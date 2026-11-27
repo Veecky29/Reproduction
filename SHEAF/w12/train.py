@@ -1,4 +1,4 @@
-﻿"""W1.2 trainer: one (dataset, arm, horizon, seed) run -> one JSON line.
+"""W1.2 trainer: one (dataset, arm, horizon, seed) run -> one JSON line.
 
     python train.py --data-root /root/autodl-tmp/benchmark --dataset ETTh1 \
         --arm sheaf --horizon 96 --seed 2026
@@ -61,7 +61,8 @@ def run(args):
     dev = args.device
 
     win, prior, C = D.build(args.dataset, args.data_root, args.L, args.horizon,
-                           args.stride, args.channels, args.seed)
+                           args.stride, args.channels, args.seed,
+                           drop=[c for c in args.drop_channels.split(",") if c.strip()])
     (xtr, ytr), (xva, yva), (xte, yte) = win["train"], win["val"], win["test"]
     if args.smoke:
         xtr, ytr = xtr[:128], ytr[:128]
@@ -158,7 +159,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data-root", default="/root/autodl-tmp/benchmark")
     ap.add_argument("--dataset", default="ETTh1")
-    ap.add_argument("--arm", default="sheaf", choices=["plain", "concat", "mix", "sheaf"])
+    ap.add_argument("--arm", default="sheaf",
+                    choices=["plain", "nostats", "film", "concat", "mix", "sheaf"])
     ap.add_argument("--horizon", type=int, default=96)
     ap.add_argument("--L", type=int, default=96)
     ap.add_argument("--patch", type=int, default=16)
@@ -167,6 +169,8 @@ def main():
     ap.add_argument("--dropout", type=float, default=0.1)
     ap.add_argument("--channels", type=int, default=40,
                     help="subsample channels above this; Electricity -> 40 (checkB parity)")
+    ap.add_argument("--drop-channels", default="",
+                    help="comma-separated column names to remove, e.g. 'rain (mm),raining (s)'")
     ap.add_argument("--stride", type=int, default=1)
     ap.add_argument("--batch", type=int, default=64)
     ap.add_argument("--lr", type=float, default=1e-3)

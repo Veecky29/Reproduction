@@ -29,8 +29,9 @@ BENCH = {
 def read_dataset(root: str, name: str):
     df = pd.read_csv(os.path.join(root, f"{name}.csv"))
     dates = pd.to_datetime(df["date"])
+    cols = [c for c in df.columns if c != "date"]
     X = df.drop(columns=["date"]).to_numpy(np.float32)
-    return dates, X
+    return dates, X, cols
 
 
 def split_bounds(name: str, dates: pd.Series) -> dict:
@@ -65,8 +66,12 @@ def windows(X: np.ndarray, lo: int, hi: int, L: int, H: int, stride: int):
 
 
 def build(name: str, root: str, L: int, H: int, stride_train: int = 1,
-          channels: int | None = None, seed: int = 2026):
-    dates, X = read_dataset(root, name)
+          channels: int | None = None, seed: int = 2026, drop=()):
+    dates, X, cols = read_dataset(root, name)
+    if drop:
+        keep = [i for i, c in enumerate(cols) if c.strip() not in {d.strip() for d in drop}]
+        if len(keep) != len(cols):
+            X = X[:, keep]
     if channels is not None and X.shape[1] > channels:
         rng = np.random.default_rng(seed)
         keep = np.sort(rng.choice(X.shape[1], channels, replace=False))
