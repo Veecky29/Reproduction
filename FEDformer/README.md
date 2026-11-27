@@ -73,6 +73,11 @@ _Run `tools/aggregate.py --readme README.md` after the runs finish._
 
 ## Known gaps
 
+* **Solar-Energy and PEMS are not part of FEDformer's own benchmark.** The official
+  `run_M.sh` covers ETTm1/ETTh1/ETTm2/ETTh2, electricity, exchange, traffic, weather and
+  illness (of which illness is not in this repository's set). Running Solar-Energy
+  would mean inventing a setting the authors never used, so the cell is left absent
+  rather than approximated.
 * `configs/paper_reference.csv` has the right schema and rows but the paper columns are
   empty: the numbers must be transcribed from arXiv:2201.12740 by hand (the arXiv HTML
   does not expose the table cleanly). `tools/aggregate.py` leaves the comparison columns
