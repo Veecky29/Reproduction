@@ -32,6 +32,11 @@ lr=3e-4（在 `plain` 上逐数据集搜出来的最优值），早停 patience=
 
 `sheaf` 相对 `plain`：+0.1% / −0.9% / +2.1% / +1.4% / +0.7% / −1.1% —— **六个数据集全在 ±2% 内，正负混杂。**
 
+> **Traffic（862 通道）没有跑成**：9 次全部在数据加载阶段失败，原因是 `data.py` 的
+> `BENCH` 字典漏了 Traffic 条目（`KeyError`）。修它只需一行，但结论不依赖它——判据只看
+> Electricity 和 Weather，这两个都跑满了。另外 Traffic 在 PAC-Former 的 Table 6 里是
+> 唯一显著变差的数据集（+3.05%），本就不构成支持证据。
+
 ## 3. 三条发现
 
 1. **跨通道结构只在个别数据集上有价值。** `concat` 在 Electricity 上比 `plain` 好
