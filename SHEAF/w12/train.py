@@ -1,4 +1,4 @@
-﻿"""W1.2 trainer: one (dataset, arm, horizon, seed) run -> one JSON line.
+"""W1.2 trainer: one (dataset, arm, horizon, seed) run -> one JSON line.
 
     python train.py --data-root /root/autodl-tmp/benchmark --dataset ETTh1 \
         --arm sheaf --horizon 96 --seed 2026
@@ -133,6 +133,17 @@ def run(args):
                test_mse=round(tmse, 6), test_mae=round(tmae, 6),
                seconds=round(time.time() - t0, 1), d=args.d, layers=args.layers,
                patch=args.patch, batch=args.batch, lr=args.lr, epochs_run=len(hist))
+    # read-out diagnostics: whether the cross-channel branch actually opened is the
+    # first thing to look at before blaming (or crediting) the architecture.
+    if hasattr(model, "msg_scale"):
+        rec.update(alpha=round(float(model.msg_scale.detach()), 5),
+                   delta=round(float(model.delta.detach()), 5),
+                   eta=round(float(model.eta.detach()), 5),
+                   tau=round(float(torch.exp(model.log_tau.detach())), 5))
+        gs = getattr(model, "gate_stats", None)
+        if gs:
+            rec.update(gate_mean=round(gs[0], 5), gate_sd=round(gs[1], 5),
+                       gate_max=round(gs[2], 5))
     print("  " + json.dumps(rec), flush=True)
     return rec
 
