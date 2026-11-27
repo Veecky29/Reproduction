@@ -2,6 +2,8 @@
 
 > 2026-11-26 起的工作区。**结论是否定的**：精确可删除的加性读出层在这批基准上
 > 没有带来任何预测增益。见 [NEGATIVE_RESULT.md](NEGATIVE_RESULT.md)。
+>
+> Phase 0 SCP/LUR 诊断（独立于上面已收口的精度线，不重开 sheaf/mix/film）：[lur_pilot/README.md](lur_pilot/README.md)。
 
 ## 一句话
 
