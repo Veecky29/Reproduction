@@ -1,0 +1,6 @@
+third_party/TS_Predictability/
+work/
+results/
+__pycache__/
+*.pyc
+.pytest_cache/

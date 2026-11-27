@@ -1,0 +1,61 @@
+# Phase 0 SCP / MSE_lb / LUR.
+# Override the dataset directory with the environment variable LUR_DATA_ROOT
+# (that overrides data_root below).
+
+data_root: ""
+
+# Official TS_Predictability ECL/weather scripts set seq_len = pred_len.
+# --horizon changes both. Default horizon is 96.
+horizon: 96
+label_len: 48
+
+# Default run. ETT is not included; pass --include-ett to add it.
+datasets:
+  - electricity
+  - traffic
+  - weather
+include_ett: false
+
+# Data-quality control for Weather only. Not a forecasting method.
+# Drops columns whose base name is rain or raining, including
+# "rain (mm)" and "raining (s)".
+weather_drop_rain: true
+
+# Column required by the official Dataset_Custom loader (it is moved to
+# the last position; with features=M every column is still predicted).
+target: OT
+
+# Official evaluate_band_LUR defaults used by the pre-registered kill rule.
+# even:16 = 16 evenly spaced channels (the official helper is one channel
+# per call; the kill rule needs more than channel 0).
+lur_bands: "auto:10"
+lur_max_samples: 1000
+lur_channels: "even:16"
+lur_include_dc: false
+welch_win_frac: 0.25
+welch_overlap: 0.5
+alpha_boundary: 1.0
+
+# Pre-registered kill rule. Do not edit these after looking at outputs.
+# A band is materially low-LUR when, on iTransformer,
+# mean official XR_mean < xr_below AND mean official energy weight
+# >= min_energy_weight. Electricity and Traffic both have to lack such a
+# band. A Weather-only band does not count.
+kill_rule:
+  model: iTransformer
+  datasets:
+    - electricity
+    - traffic
+  xr_below: 0.5
+  min_energy_weight: 0.05
+
+train:
+  epochs: 10
+  patience: 3
+  num_workers: 4
+  use_ps_loss: 0
+
+# Physical GPU. The launcher sets CUDA_VISIBLE_DEVICES to this value and
+# passes --gpu 0 into the official script (that script overwrites
+# CUDA_VISIBLE_DEVICES with its --gpu).
+gpu: 0

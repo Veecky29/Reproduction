@@ -1,0 +1,18 @@
+# Phase 0 driver dependencies.
+# The metric implementation is not in this list: setup.sh clones
+# WanjinVon/TS_Predictability and the diagnostic scripts import it.
+#
+# Upstream pins Python 3.8 and old numpy/pandas, but the cloned code uses
+# PEP 604 unions (`int | None`) and is imported as-is. Use Python >= 3.10.
+# Install a CUDA torch build on the training machine if pip pulls the CPU wheel.
+
+# The official EarlyStopping still assigns np.Inf, which NumPy 2 removed.
+# Keep the scientific stack on the NumPy 1.26 line so that import succeeds.
+numpy>=1.26,<2
+pandas>=2.0,<2.3
+scipy>=1.11,<1.14
+scikit-learn>=1.3,<1.5
+matplotlib>=3.7
+einops>=0.4
+PyYAML>=6
+torch>=2.0
