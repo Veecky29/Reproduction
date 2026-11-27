@@ -1,4 +1,4 @@
-﻿"""Arms, revision 2 (after the review of the negative result).
+"""Arms, revision 2 (after the review of the negative result).
 
 Every arm now shares the SAME channel-independent patch encoder; only the way
 cross-channel information enters the output differs. That was the flaw in v1: the
@@ -214,11 +214,45 @@ class MixGated(Base):
         return y, mu, sd
 
 
+class PlainNoStats(Base):
+    """Pure CI head: no window statistics beyond the RevIN affine denormalisation."""
+
+    def __init__(self, H, enc_kw):
+        super().__init__(enc_kw)
+        self.head = nn.Linear(self.d, H)
+
+    def forward(self, x):
+        h, mu, sd = self.embed(x)
+        return self.head(h).permute(0, 2, 1), mu, sd
+
+
+class PlainFiLM(Base):
+    """Window statistics condition the representation instead of being concatenated.
+
+    h' = h * (1 + tanh(g(mu, log sd))) + b(mu, log sd)
+    """
+
+    def __init__(self, H, enc_kw):
+        super().__init__(enc_kw)
+        self.film = nn.Linear(2, 2 * self.d)
+        self.head = nn.Linear(self.d, H)
+
+    def forward(self, x):
+        h, mu, sd = self.embed(x)
+        g, b = self.film(_stats(mu, sd)).chunk(2, dim=-1)
+        h2 = h * (1.0 + torch.tanh(g)) + b
+        return self.head(h2).permute(0, 2, 1), mu, sd
+
+
 def build(arm: str, L: int, H: int, rho=None, d: int = 128, n_layer: int = 3,
           patch: int = 16, dropout: float = 0.1, C: int = 64, beta_init: float = 0.1):
     enc_kw = dict(L=L, patch=patch, d=d, n_layer=n_layer, n_head=8, dropout=dropout)
     if arm == "plain":
         return PlainCI(H, enc_kw)
+    if arm == "nostats":
+        return PlainNoStats(H, enc_kw)
+    if arm == "film":
+        return PlainFiLM(H, enc_kw)
     if arm == "concat":
         return ChannelMixFair(H, enc_kw, C=C, n_mix=1, dropout=dropout)
     if arm == "mix":
